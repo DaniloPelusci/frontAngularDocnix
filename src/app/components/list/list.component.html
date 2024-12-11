@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-            @for(documento of documentos; track documento){
+            @for(documento of documentos; track documento.id){
                 <tr>
                   <td>{{ documento.id }}</td>
                   <td>{{ documento.titulo }}</td>

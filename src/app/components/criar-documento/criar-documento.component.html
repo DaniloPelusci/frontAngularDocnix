@@ -1,49 +1,88 @@
-<h1 class="text-center mb-4">Formulário de Documento</h1>
-        <form action="/documento" method="POST" class="needs-validation" novalidate>
-            <!-- Campo Título -->
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Digite o título" required>
-                <div class="invalid-feedback">Por favor, informe o título.</div>
-            </div>
-
-            <!-- Campo Descrição -->
-            <div class="mb-3">
-                <label for="descricao" class="form-label">Descrição</label>
-                <textarea class="form-control" id="descricao" name="descricao" rows="4" placeholder="Digite a descrição"></textarea>
-            </div>
-
-            <!-- Campo Versão -->
-            <div class="mb-3">
-                <label for="versao" class="form-label">Versão</label>
-                <input type="number" class="form-control" id="versao" name="versao" placeholder="Digite a versão" required>
-                <div class="invalid-feedback">Por favor, informe a versão.</div>
-            </div>
-
-            <!-- Campo Sigla -->
-            <div class="mb-3">
-                <label for="sigla" class="form-label">Sigla</label>
-                <input type="text" class="form-control" id="sigla" name="sigla" placeholder="Digite a sigla" required>
-                <div class="invalid-feedback">Por favor, informe a sigla.</div>
-            </div>
-
-            <!-- Campo Fase -->
-            <div class="mb-3">
-                <label for="fase" class="form-label">Fase</label>
-                <select class="form-select" id="fase" name="fase" required>
-                    <option value="" selected>Selecione uma fase</option>
-                    <option value="FASE1">FASE1</option>
-                    <option value="FASE2">FASE2</option>
-                    <option value="FASE3">FASE3</option>
-                    <!-- Adicione outras opções conforme o Enum -->
-                </select>
-                <div class="invalid-feedback">Por favor, selecione uma fase.</div>
-            </div>
-
-            <!-- Botão de Envio -->
-            <div class="d-grid">
-                <button (click)="submit()" type="submit" class="btn btn-primary">Salvar</button>
-            </div>
-        </form>
-
-        <button (click)="submit()" class="btn btn-primary">terste</button>
+<div class="container mt-4">
+    <h2 class="text-center">Cadastro de Documento</h2>
+    
+    <!-- Formulário de Cadastro -->
+    <form [formGroup]="formDocumento" (ngSubmit)="onSubmit()" class="mt-4">
+      <div class="row g-3">
+        <!-- Título -->
+        <div class="col-md-6">
+          <label for="titulo" class="form-label">Título</label>
+          <input 
+            type="text" 
+            id="titulo" 
+            class="form-control" 
+            formControlName="titulo" 
+            placeholder="Digite o título do documento" 
+          />
+          <div *ngIf="formDocumento.get('titulo')?.invalid && formDocumento.get('titulo')?.touched" class="text-danger">
+            O título é obrigatório.
+          </div>
+        </div>
+  
+        <!-- Descrição -->
+        <div class="col-md-6">
+          <label for="descricao" class="form-label">Descrição</label>
+          <input 
+            type="text" 
+            id="descricao" 
+            class="form-control" 
+            formControlName="descricao" 
+            placeholder="Digite a descrição do documento" 
+          />
+          <div *ngIf="formDocumento.get('descricao')?.invalid && formDocumento.get('descricao')?.touched" class="text-danger">
+            A descrição é obrigatória.
+          </div>
+        </div>
+  
+        <!-- Versão -->
+        <div class="col-md-4">
+          <label for="versao" class="form-label">Versão</label>
+          <input 
+            type="number" 
+            id="versao" 
+            class="form-control" 
+            formControlName="versao" 
+            placeholder="Digite a versão" 
+          />
+          <div *ngIf="formDocumento.get('versao')?.invalid && formDocumento.get('versao')?.touched" class="text-danger">
+            A versão é obrigatória.
+          </div>
+        </div>
+  
+        <!-- Sigla -->
+        <div class="col-md-4">
+          <label for="sigla" class="form-label">Sigla</label>
+          <input 
+            type="text" 
+            id="sigla" 
+            class="form-control" 
+            formControlName="sigla" 
+            placeholder="Digite a sigla" 
+          />
+          <div *ngIf="formDocumento.get('sigla')?.invalid && formDocumento.get('sigla')?.touched" class="text-danger">
+            A sigla é obrigatória.
+          </div>
+        </div>
+  
+        <!-- Fase -->
+        <div class="col-md-4">
+          <label for="fase" class="form-label">Fase</label>
+          <select id="fase" class="form-select" formControlName="fase">
+            <option value="" disabled selected>Selecione a fase</option>
+            <option *ngFor="let fase of fases" [value]="fase">{{ fase }}</option>
+          </select>
+          <div *ngIf="formDocumento.get('fase')?.invalid && formDocumento.get('fase')?.touched" class="text-danger">
+            A fase é obrigatória.
+          </div>
+        </div>
+      </div>
+      <input type="text" class="form-control opacity-0" id="id" placeholder="">
+  
+      <!-- Botões -->
+      <div class="d-flex justify-content-end mt-4">
+        <button type="reset" class="btn btn-secondary me-2">Limpar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="formDocumento.invalid">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+  

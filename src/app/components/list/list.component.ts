@@ -14,7 +14,7 @@ export class ListComponent {
   constructor(private documentoService: DocumentoService) {}
 
   ngOnInit(): void {
-    this.documentoService.obterContatos().subscribe((documentos) => {
+    this.documentoService.obterDocumentos().subscribe((documentos) => {
       this.documentos = documentos;
     });
   }
